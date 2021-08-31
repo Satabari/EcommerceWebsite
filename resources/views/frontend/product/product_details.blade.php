@@ -69,7 +69,6 @@
                       <a class="horizontal-thumb active" data-target="#owl-single-product" data-slide="1" href="#slide{{ $img->id }}">
                         <img class="img-responsive" width="85" alt="" src="{{ asset($img->photo_name ) }} " data-echo="{{ asset($img->photo_name ) }} " />
                       </a>
-                      </a>
                     </div>
                     @endforeach
 
@@ -81,7 +80,7 @@
 
             <div class='col-sm-6 col-md-7 product-info-block'>
               <div class="product-info">
-                <h1 class="name">{{ $product->product_name}}</h1>
+                <h1 class="name" id="pname">{{ $product->product_name}}</h1>
 
                 <div class="rating-reviews m-t-20">
                   <div class="row">
@@ -161,7 +160,7 @@
                     <div class="col-md-6">
                       <div class="form-group">
                         <label class="info-title control-label">Color <span>*</span></label>
-                        <select class="form-control unicase-form-control selectpicker">
+                        <select class="form-control unicase-form-control selectpicker" required="" style="display:none;" id="color">
                           <option selected="" disabled="">--Choose Color--</option>
                           @foreach($product_color as $color)
                           <option value="{{ $color }}">{{ ucwords($color) }}</option>
@@ -172,13 +171,17 @@
                   
                     <div class="col-md-6">
                       <div class="form-group">
+                      @if($product->product_size == null)
+
+                      @else	
                         <label class="info-title control-label">Size <span>*</span></label>
-                        <select class="form-control unicase-form-control selectpicker">
+                        <select class="form-control unicase-form-control selectpicker" required="" style="display: none;" id="size">
                           <option selected="" disabled="">--Choose Size--</option>
                           @foreach($product_size as $size)
                           <option value="{{ $size }}">{{ ucwords($size) }}</option>
                           @endforeach
                         </select>
+                      @endif
                       </div>
                     </div>
 
@@ -187,31 +190,41 @@
 
                 <div class="quantity-container info-container">
                   <div class="row">
-
                     <div class="col-sm-2">
-                      <span class="label">Qty : {{ $product->product_qty }}</span>
+                      <span class="label">QTY</span>
                     </div>
 
-                    <div class="col-sm-2">
+                    <!-- <div class="col-sm-2">
                       <div class="cart-quantity">
                         <div class="quant-input">
                           <div class="arrows">
                             <div class="arrow plus gradient"><span class="ir"><i class="icon fa fa-sort-asc"></i></span></div>
                             <div class="arrow minus gradient"><span class="ir"><i class="icon fa fa-sort-desc"></i></span></div>
                           </div>
-                          <input type="text" value="1">
+                          <input type="text" id="qty" value="1" min="1">
                         </div>
                       </div>
+                    </div> -->
+
+                    <div class="col-sm-2">
+                      <input type="number" class="form-control" id="qty" value="1" min="1">
                     </div>
 
+                    <input type="hidden" id="product_id" value="{{ $product->id }}" min="1">
+
                     <div class="col-sm-7">
-                      <a href="#" class="btn btn-primary"><i class="fa fa-shopping-cart inner-right-vs"></i> ADD TO CART</a>
+                      <button type="submit" onclick="addToCart()" class="btn btn-primary"><i class="fa fa-shopping-cart inner-right-vs"></i> ADD TO CART</button>
                     </div>
-                  </div><!-- /.row -->
-                </div><!-- /.quantity-container -->
-              </div><!-- /.product-info -->
-            </div><!-- /.col-sm-7 -->
-          </div><!-- /.row -->
+                  </div>
+                  <!-- /.row -->
+                </div>
+                <!-- /.quantity-container -->
+              </div>
+              <!-- /.product-info -->
+            </div>
+            <!-- /.col-sm-7 -->
+          </div>
+          <!-- /.row -->
         </div>
 
         <div class="product-tabs inner-bottom-xs  wow fadeInUp">

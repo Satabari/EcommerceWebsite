@@ -110,7 +110,7 @@
           <div class="row">
             <div class="col-md-4">
               <div class="card" style="width: 18rem;">
-                <img src="..." class="card-img-top" alt="..." style="height: 200px; width:180px;" id="pimage">
+                <img src=" " class="card-img-top" alt="..." style="height: 200px; width:180px;" id="pimage">
               </div>
             </div>
             <!-- // end col md -->
@@ -123,7 +123,8 @@
                 <li class="list-group-item">Product Code: <strong id="pcode"></strong></li>
                 <li class="list-group-item">Category: <strong id="pcategory"></strong></li>
                 <li class="list-group-item">Brand: <strong id="pbrand"></strong></li>
-                <li class="list-group-item">Stock: <span class="badge badge-pill badge-success" id="available" style="background: green; color: white;"></span>
+                <li class="list-group-item">Stock: 
+                  <span class="badge badge-pill badge-success" id="available" style="background: green; color: white;"></span>
                   <span class="badge badge-pill badge-danger" id="stockout" style="background: red; color: white;"></span>
                 </li>
               </ul>
@@ -134,7 +135,7 @@
                 <label for="color">Choose Color</label>
                 <select class="form-control" id="color" name="color">
               </div>
-              <div class="form-group">
+              <div class="form-group" id="sizeArea">
                 <label for="size">Choose Size</label>
                 <select class="form-control" id="size" name="size">
               </div>
@@ -142,8 +143,10 @@
                 <label for="qty">Quantity</label>
                 <input type="number" class="form-control" id="qty" value="1" min="1">
               </div>
+
               <input type="hidden" id="product_id">
-              <button type="submit" class="btn btn-primary mb-2" onclick="addToCart()">Add to Cart</button>
+              <button type="submit" class="btn btn-primary mb-2" onclick="addToCart()"><i class="fa fa-shopping-cart inner-right-vs"></i>Add to Cart</button>
+            
             </div>
             <!-- // end col md -->
           </div>
@@ -161,6 +164,7 @@
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       }
     })
+
     // Start Product View with Modal 
     function productView(id) {
       // alert(id)
@@ -213,12 +217,9 @@
           $('select[name="size"]').empty();
           $.each(data.size, function(key, value) {
             $('select[name="size"]').append('<option value=" ' + value + ' ">' + value + ' </option>')
-            console.log(data.size)
             if (data.size.length > 0) {
-              console.log("if");
               $('#size_area').show();
             } else {
-              console.log("else");
               $('#size_area').hide();
             }
           })
@@ -226,6 +227,7 @@
         }
       })
     }
+
     // Add to cart
     function addToCart() {
       var product_name = $('#pname').text();
@@ -244,6 +246,8 @@
         },
         url: "/cart/data/store/" + id,
         success: function(data) {
+
+          miniCart();
           $('#closeModel').click();
           // console.log(data);
 
@@ -271,6 +275,7 @@
       })
     }
   </script>
+
   <script type="text/javascript">
     function miniCart() {
       $.ajax({
@@ -278,30 +283,70 @@
         url: '/product/mini/cart',
         dataType: 'json',
         success: function(response) {
-          // console.log(response);
-          var miniCart = ""
-          $.each(response.carts, function(key, value) {
-            miniCart += `<div class="cart-item product-summary">
-              <div class="row">
-                <div class="col-xs-4">
-                  <div class="image"> <a href="detail.html"><img src="{{ asset('frontend/assets/images/cart.jpg') }}" alt=""></a> </div>
-                </div>
-                <div class="col-xs-7">
-                  <h3 class="name"><a href="index.php?page-detail">Simple Product</a></h3>
-                  <div class="price">$600.00</div>
-                </div>
-                <div class="col-xs-1 action"> <a href="#"><i class="fa fa-trash"></i></a> </div>
-              </div>
-            </div>
-            <!-- /.cart-item -->
-            <div class="clearfix"></div>
-            <hr>`
-          });
 
+          // console.log(response);
+          $('span[id="cartSubTotal"]').text(response.cartTotal);
+          $('#cartQty').text(response.cartQty);
+          var miniCart = ""
+          $.each(response.carts, function(key,value) {
+            miniCart += `<div class="cart-item product-summary">
+                  <div class="row">
+                  <div class="col-xs-4">
+                    <div class="image"> <a href="detail.html"> <img src="/${value.options.image}" alt=""> </a> </div>
+                  </div>
+                  <div class="col-xs-7">
+                    <h3 class="name"><a href="index.php?page-detail">${value.name}</a></h3>
+                    <div class="price"> ${value.price}*${value.qty}</div>
+                  </div>
+                  <div class="col-xs-1 action"> 
+                    <button type="submit" id="${value.rowId}" onclick="miniCartRemove(this.id)"><i class="fa fa-trash"></i></button>
+                  </div>
+                </div>
+              </div>
+              <!-- /.cart-item -->
+              <div class="clearfix"></div>
+              <hr>`
+          });
           $('#miniCart').html(miniCart);
         }
       })
     }
+    miniCart();
+
+    /// mini cart remove Start 
+    function miniCartRemove(rowId) {
+      $.ajax({
+        type: 'GET',
+        url: '/minicart/product-remove/' + rowId,
+        dataType: 'json',
+        success: function(data) {
+        miniCart();
+
+          // Start Message 
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 3000
+          })
+          
+          if ($.isEmptyObject(data.error)) {
+            Toast.fire({
+              type: 'success',
+              title: data.success
+            })
+          } else {
+            Toast.fire({
+              type: 'error',
+              title: data.error
+            })
+          }
+          // End Message 
+        }
+      });
+    }
+    //  end mini cart remove 
   </script>
 
 </body>
