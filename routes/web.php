@@ -18,6 +18,8 @@ use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\LanguageController;
 use App\Http\Controllers\frontend\CartController;
 
+use App\Http\Controllers\User\WishlistController;
+
 use Laravel\Jetstream\Rules\Role;
 
 /*
@@ -60,12 +62,12 @@ Route::middleware(['auth:admin'])->group(function(){
 //Routes for user
 
 Route::middleware(['auth:sanctum,web', 'verified'])->get('/dashboard', function () {
-    $id = Auth::user()->id;
+	$id = Auth::user()->id;
     $user = User::find($id);
     return view('dashboard',compact('user'));
 })->name('dashboard');
 
-Route::get('/',[IndexController::class, 'index']);
+Route::get('/', [IndexController::class, 'index']);
 Route::get('/user/logout',[IndexController::class, 'UserLogout'])->name('user.logout');
 Route::get('/user/profile',[IndexController::class, 'UserProfile'])->name('user.profile');
 Route::post('/user/profile/store',[IndexController::class, 'UserProfileStore'])->name('user.profile.store');
@@ -151,7 +153,7 @@ Route::get('/language/bengali',[LanguageController::class, 'Bengali'])->name('be
 //Product 
 Route::get('/product/details/{id}/{slug}',[IndexController::class, 'ProductDetails']);
 
-//Common
+//Common Tag
 Route::get('/product/tag/{tag}',[IndexController::class, 'TagWiseProduct']);
 
 //Subcategory wise data
@@ -165,9 +167,19 @@ Route::get('/product/view/modal/{id}', [IndexController::class, 'ProductViewAjax
 
 // Add to Cart Store Data
 Route::post('/cart/data/store/{id}', [CartController::class, 'AddToCart']);
-
 // Get Data from mini cart
 Route::get('/product/mini/cart/', [CartController::class, 'AddMiniCart']);
-
 // Remove mini cart
-Route::get('/minicart/product-remove/{rowId}', [CartController::class, 'RemoveMiniCart']); 
+Route::get('/minicart/product-remove/{rowId}', [CartController::class, 'RemoveMiniCart']);
+
+// Add to Wishlist
+Route::post('/add-to-wishlist/{product_id}', [CartController::class, 'AddToWishlist']);
+
+Route::group(['prefix'=>'user','middleware' => ['user','auth'],'namespace'=>'User'],function(){
+    // Wishlist page
+    Route::get('/wishlist', [WishlistController::class, 'ViewWishlist'])->name('wishlist');
+    // Get wishlist details
+    Route::get('/get-wishlist-product', [WishlistController::class, 'GetWishlistProduct']);
+    // Remove wishlist
+    Route::get('/wishlist-remove/{id}', [WishlistController::class, 'RemoveWishlistProduct']);
+});

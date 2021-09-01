@@ -7,36 +7,20 @@
         <div class="cnt-account">
           <ul class="list-unstyled">
             <li><a href="#"><i class="icon fa fa-user"></i>
-                @if(session()->get('language') == 'bengali')
-                আমার অ্যাকাউন্ট
-                @else
-                My Account
-                @endif
+                @if(session()->get('language') == 'bengali') আমার অ্যাকাউন্ট @else My Account @endif
               </a></li>
-            <li><a href="#"><i class="icon fa fa-heart"></i>
-                @if(session()->get('language') == 'bengali')
-                ইচ্ছেতালিকা
-                @else
-                Wishlist
-                @endif
+            <li><a href="{{ route('wishlist') }}"><i class="icon fa fa-heart"></i>
+                @if(session()->get('language') == 'bengali') ইচ্ছেতালিকা @else Wishlist @endif
               </a></li>
             <li><a href="#"><i class="icon fa fa-shopping-cart"></i>
-                @if(session()->get('language') == 'bengali')
-                আমার কার্ট
-                @else
-                My Cart
-                @endif
+                @if(session()->get('language') == 'bengali') আমার কার্ট @else My Cart @endif
               </a></li>
             <li><a href="#"><i class="icon fa fa-check"></i>
-                @if(session()->get('language') == 'bengali')
-                চেকআউট
-                @else
-                Checkout
-                @endif
+                @if(session()->get('language') == 'bengali') চেকআউট @else @endif
               </a></li>
             <li>
               @auth
-              <a href="{{ route('login') }}"><i class="icon fa fa-user">User Profile</i></a>
+              <a href="{{ route('dashboard') }}"><i class="icon fa fa-user"></i>User Profile</a>
               @else
               <a href="{{ route('login') }}"><i class="icon fa fa-lock"></i>Login/Register</a>
               @endauth
@@ -134,12 +118,12 @@
               <div class="items-cart-inner">
                 <div class="basket"> <i class="glyphicon glyphicon-shopping-cart"></i> </div>
                 <div class="basket-item-count"><span class="count" id="cartQty"> </span></div>
-                <div class="total-price-basket"> 
-                  <span class="lbl">cart-</span> 
-                  <span class="total-price"> 
+                <div class="total-price-basket">
+                  <span class="lbl">cart-</span>
+                  <span class="total-price">
                     <span class="sign">$</span>
                     <span class="value" id="cartSubTotal"> </span>
-                  </span> 
+                  </span>
                 </div>
               </div>
             </a>

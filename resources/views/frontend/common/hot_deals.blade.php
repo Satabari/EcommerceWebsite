@@ -52,7 +52,7 @@
         <div class="cart clearfix animate-effect">
           <div class="action">
             <div class="add-cart-button btn-group">
-              <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i></button>
+            <button class="btn btn-primary icon" type="button" title="Wishlist" id="{{ $product->id }}" onclick="addToWishList(this.id)"> <i class="fa fa-heart"></i> </button>
               <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
             </div>
           </div>
