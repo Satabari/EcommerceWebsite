@@ -19,6 +19,7 @@ use App\Http\Controllers\Frontend\LanguageController;
 use App\Http\Controllers\frontend\CartController;
 
 use App\Http\Controllers\User\WishlistController;
+use App\Http\Controllers\user\CartPageController;
 
 use Laravel\Jetstream\Rules\Role;
 
@@ -183,3 +184,14 @@ Route::group(['prefix'=>'user','middleware' => ['user','auth'],'namespace'=>'Use
     // Remove wishlist
     Route::get('/wishlist-remove/{id}', [WishlistController::class, 'RemoveWishlistProduct']);
 });
+
+    // Cart view
+    Route::get('/mycart', [CartPageController::class, 'MyCart'])->name('mycart');
+    //get cart product
+    Route::get('/user/get-cart-product', [CartPageController::class, 'GetCartProduct']);
+    //remove from cart
+    Route::get('/user/cart-remove/{rowId}', [CartPageController::class, 'RemoveCartProduct']);
+    // Cart Increment
+    Route::get('/cart-increment/{rowId}', [CartPageController::class, 'CartIncrement']);
+    // Cart Decrement
+    Route::get('/cart-decrement/{rowId}', [CartPageController::class, 'CartDecrement']);
