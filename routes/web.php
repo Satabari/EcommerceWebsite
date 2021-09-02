@@ -14,6 +14,7 @@ use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\CouponController;
+use App\Http\Controllers\Backend\ShippingAreaController;
 
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\LanguageController;
@@ -204,4 +205,30 @@ Route::prefix('coupons')->group(function(){
     Route::get('/edit/{id}', [CouponController::class, 'CouponEdit'])->name('coupon.edit');
     Route::post('/update/{id}', [CouponController::class, 'CouponUpdate'])->name('coupon.update');
     Route::get('/delete/{id}', [CouponController::class, 'CouponDelete'])->name('coupon.delete');
+});
+
+// Admin Shipping All Routes
+Route::prefix('shipping')->group(function(){
+
+  //State routes
+  Route::get('/state/view', [ShippingAreaController::class, 'StateView'])->name('manage-state');  
+  Route::post('/state/store', [ShippingAreaController::class, 'StateStore'])->name('state.store');  
+  Route::get('/state/edit/{id}', [ShippingAreaController::class, 'StateEdit'])->name('state.edit');
+  Route::post('/state/update/{id}', [ShippingAreaController::class, 'StateUpdate'])->name('state.update');  
+  Route::get('/state/delete/{id}', [ShippingAreaController::class, 'StateDelete'])->name('state.delete');
+
+  //District Routes
+  Route::get('/district/view', [ShippingAreaController::class, 'DistrictView'])->name('manage-district');
+  Route::post('/district/store', [ShippingAreaController::class, 'DistrictStore'])->name('district.store');
+  Route::get('/district/edit/{id}', [ShippingAreaController::class, 'DistrictEdit'])->name('district.edit');
+  Route::post('/district/update/{id}', [ShippingAreaController::class, 'DistrictUpdate'])->name('district.update');
+  Route::get('/district/delete/{id}', [ShippingAreaController::class, 'DistrictDelete'])->name('district.delete');
+
+  //City Routes
+  Route::get('/city/view', [ShippingAreaController::class, 'CityView'])->name('manage-city');
+  Route::post('/city/store', [ShippingAreaController::class, 'CityStore'])->name('city.store');
+  Route::get('/city/edit/{id}', [ShippingAreaController::class, 'CityEdit'])->name('city.edit');
+  Route::post('/city/update/{id}', [ShippingAreaController::class, 'CityUpdate'])->name('city.update');
+  Route::get('/city/delete/{id}', [ShippingAreaController::class, 'CityDelete'])->name('city.delete');
+  
 });
