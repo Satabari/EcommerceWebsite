@@ -22,6 +22,7 @@ use App\Http\Controllers\frontend\CartController;
 
 use App\Http\Controllers\User\WishlistController;
 use App\Http\Controllers\user\CartPageController;
+use App\Http\Controllers\User\CheckoutController;
 
 use Laravel\Jetstream\Rules\Role;
 
@@ -237,3 +238,11 @@ Route::prefix('shipping')->group(function(){
 Route::post('/coupon-apply', [CartController::class, 'CouponApply']);
 Route::get('/coupon-calculation', [CartController::class, 'CouponCalculation']);
 Route::get('/coupon-remove', [CartController::class, 'CouponRemove']);
+
+ // Checkout Routes
+ Route::get('/checkout', [CartController::class, 'CheckoutCreate'])->name('checkout');
+
+//To get District and city according to state 
+Route::get('/district-get/ajax/{state_id}', [CheckoutController::class, 'DistrictGetAjax']);
+Route::get('/city-get/ajax/{district_id}', [CheckoutController::class, 'CityGetAjax']);
+Route::post('/checkout/store', [CheckoutController::class, 'CheckoutStore'])->name('checkout.store');

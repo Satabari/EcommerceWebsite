@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\Wishlist;
 use App\Models\Coupon;
+use App\Models\ShipState;
 
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Carbon\Carbon;
@@ -71,8 +72,8 @@ class CartController extends Controller
 		return response()->json(array(
 			'carts' => $carts,
 			'cartQty' => $cartQty,
-			'cartTotal' => round($cartTotal),
-			// 'cartTotal' => $cartTotal,
+			'cartTotal' => ($cartTotal),
+			//'cartTotal' => $cartTotal,
 		));
 	}
 
@@ -145,4 +146,32 @@ class CartController extends Controller
 		Session::forget('coupon');
 		return response()->json(['success' => 'Coupon Remove Successfully']);
 	}
+
+	public function CheckoutCreate()
+	{
+		if (Auth::check()) {
+
+			if (Cart::total() > 0) {
+				$carts = Cart::content();
+				$cartQty = Cart::count();
+				$cartTotal = Cart::total();
+				$state = ShipState::orderBy('state_name','ASC')->get();
+				return view('frontend.checkout.checkout_view', compact('carts', 'cartQty', 'cartTotal','state'));
+
+			} else {
+				$notification = array(
+					'message' => 'Shopping At list One Product',
+					'alert-type' => 'error'
+				);
+				return redirect()->to('/')->with($notification);
+			}
+		} else {
+			$notification = array(
+				'message' => 'You Need to Login First',
+				'alert-type' => 'error'
+			);
+			return redirect()->route('login')->with($notification);
+		}
+	}
+
 }
