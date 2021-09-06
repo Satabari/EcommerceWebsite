@@ -44,32 +44,26 @@ class CouponController extends Controller
 
     public function CouponUpdate(Request $request, $id)
     {
-
         Coupon::findOrFail($id)->update([
             'coupon_name' => strtoupper($request->coupon_name),
             'coupon_discount' => $request->coupon_discount,
             'coupon_validity' => $request->coupon_validity,
             'created_at' => Carbon::now(),
-
         ]);
-
         $notification = array(
             'message' => 'Coupon Updated Successfully',
             'alert-type' => 'info'
         );
-
         return redirect()->route('manage-coupon')->with($notification);
     }
 
     public function CouponDelete($id)
     {
-
         Coupon::findOrFail($id)->delete();
         $notification = array(
             'message' => 'Coupon Deleted Successfully',
             'alert-type' => 'info'
         );
-
         return redirect()->back()->with($notification);
     }
 }
