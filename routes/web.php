@@ -23,6 +23,7 @@ use App\Http\Controllers\frontend\CartController;
 use App\Http\Controllers\User\WishlistController;
 use App\Http\Controllers\user\CartPageController;
 use App\Http\Controllers\User\CheckoutController;
+use App\Http\Controllers\User\StripeController;
 
 use Laravel\Jetstream\Rules\Role;
 
@@ -186,6 +187,9 @@ Route::group(['prefix'=>'user','middleware' => ['user','auth'],'namespace'=>'Use
     Route::get('/get-wishlist-product', [WishlistController::class, 'GetWishlistProduct']);
     // Remove wishlist
     Route::get('/wishlist-remove/{id}', [WishlistController::class, 'RemoveWishlistProduct']);
+
+    //Payment routes
+    Route::post('/stripe/order', [StripeController::class, 'StripeOrder'])->name('stripe.order');
 });
 
 // Cart view

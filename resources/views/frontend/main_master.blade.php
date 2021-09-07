@@ -36,6 +36,9 @@
   <!-- Toaster cdn -->
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
 
+  <!-- stripe payment -->
+  <script src="https://js.stripe.com/v3/"></script>
+
 </head>
 
 <body class="cnt-home">
@@ -582,7 +585,6 @@
         url: "{{ url('/coupon-apply') }}",
         success: function(data) {
           couponCalculation();
-          $('#couponField').hide();
           if (data.validity == true) {
             $('#couponField').hide();
           }

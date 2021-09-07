@@ -117,6 +117,7 @@ class CartController extends Controller
 				'total_amount' => round((float)Cart::total() - (float)Cart::total() * $coupon->coupon_discount / 100, 2),
 			]);
 			return response()->json(array(
+				'validity' => true,
 				'success' => 'Coupon Applied Successfully'
 			));
 		} else {
@@ -160,7 +161,7 @@ class CartController extends Controller
 
 			} else {
 				$notification = array(
-					'message' => 'Shopping At list One Product',
+					'message' => 'Shop atleast one product',
 					'alert-type' => 'error'
 				);
 				return redirect()->to('/')->with($notification);
