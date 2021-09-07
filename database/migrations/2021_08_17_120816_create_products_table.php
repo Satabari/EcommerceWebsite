@@ -29,7 +29,7 @@ class CreateProductsTable extends Migration
             $table->string('selling_price');
             $table->string('discount_price')->nullable();
             $table->string('short_descp');
-            $table->string('long_descp');
+            $table->text('long_descp');
             $table->string('product_thumbnail');
             $table->integer('hot_deals')->nullable();
             $table->integer('featured')->nullable();
