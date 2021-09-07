@@ -10,7 +10,7 @@ My Cart Page
   <div class="container">
     <div class="breadcrumb-inner">
       <ul class="list-inline list-unstyled">
-        <li><a href="home.html">Home</a></li>
+        <li><a href="{{ url('/') }}">Home</a></li>
         <li class='active'>MyCart</li>
       </ul>
     </div><!-- /.breadcrumb-inner -->
