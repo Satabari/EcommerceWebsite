@@ -352,8 +352,8 @@
     //  end mini cart remove
   </script>
 
+  <!-- add to wishlist -->
   <script type="text/javascript">
-    //add to wishlist
     function addToWishList(product_id) {
       $.ajax({
         type: "POST",
