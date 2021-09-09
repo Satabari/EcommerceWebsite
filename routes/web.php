@@ -18,7 +18,7 @@ use App\Http\Controllers\Backend\ShippingAreaController;
 
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\LanguageController;
-use App\Http\Controllers\frontend\CartController;
+use App\Http\Controllers\Frontend\CartController;
 
 use App\Http\Controllers\User\WishlistController;
 use App\Http\Controllers\user\CartPageController;
