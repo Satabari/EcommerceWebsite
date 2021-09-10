@@ -54,7 +54,6 @@ Route::middleware(['auth:admin'])->group(function(){
     })->name('dashboard')->middleware('auth:admin');
 
     //All routes of admin
-
     Route::get('/admin/logout',[AdminController::class, 'destroy'])->name('admin.logout');
     Route::get('/admin/profile',[AdminProfileController::class, 'AdminProfile'])->name('admin.profile');
     Route::get('/admin/profile/edit',[AdminProfileController::class, 'AdminProfileEdit'])->name('admin.profile.edit');
@@ -63,11 +62,9 @@ Route::middleware(['auth:admin'])->group(function(){
     Route::post('/update/change/password',[AdminProfileController::class, 'AdminUpdateChangePassword'])->name('update.change.password');
 
 });
-
 //End Middleware admin
 
 //Routes for user
-
 Route::middleware(['auth:sanctum,web', 'verified'])->get('/dashboard', function () {
 	$id = Auth::user()->id;
     $user = User::find($id);
@@ -82,8 +79,7 @@ Route::get('/user/change/password',[IndexController::class, 'UserChangePassword'
 Route::post('/user/password/update',[IndexController::class, 'UserPasswordUpdate'])->name('user.password.update');
 
 //All routes for Admin Brands
-
-Route::prefix('brand')->group(function(){
+Route::middleware('auth:admin')->prefix('brand')->group(function(){
     Route::get('/view',[BrandController::class, 'BrandView'])->name('all.brand');
     Route::post('/store',[BrandController::class, 'BrandStore'])->name('brand.store');
     Route::get('/edit/{id}',[BrandController::class, 'BrandEdit'])->name('brand.edit');
@@ -92,19 +88,16 @@ Route::prefix('brand')->group(function(){
 });
 
 //All routes with Category Prefix
-
-Route::prefix('category')->group(function(){
+Route::middleware('auth:admin')->prefix('category')->group(function(){
     
     //All routes for Admin Category
-
     Route::get('/view',[CategoryController::class, 'CategoryView'])->name('all.category');
     Route::post('/store',[CategoryController::class, 'CategoryStore'])->name('category.store');
     Route::get('/edit/{id}',[CategoryController::class, 'CategoryEdit'])->name('category.edit');
     Route::post('/update',[CategoryController::class, 'CategoryUpdate'])->name('category.update');
     Route::get('/delete/{id}',[CategoryController::class, 'CategoryDelete'])->name('category.delete');
     
-    //All routes for Admin Sub Category
-    
+    //All routes for Admin Sub Category    
     Route::get('/sub/view',[SubCategoryController::class, 'SubCategoryView'])->name('all.subcategory');
     Route::post('/sub/store',[SubCategoryController::class, 'SubCategoryStore'])->name('subcategory.store');
     Route::get('/sub/edit/{id}',[SubCategoryController::class, 'SubCategoryEdit'])->name('subcategory.edit');
@@ -112,7 +105,6 @@ Route::prefix('category')->group(function(){
     Route::get('/sub/delete/{id}',[SubCategoryController::class, 'SubCategoryDelete'])->name('subcategory.delete');
 
     //All routes for Admin Sub->Sub Category
-
     Route::get('/sub/sub/view',[SubCategoryController::class, 'SubSubCategoryView'])->name('all.subsubcategory');
     Route::get('/subcategory/ajax/{category_id}',[SubCategoryController::class, 'GetSubCategory']);
     Route::get('/sub-subcategory/ajax/{subcategory_id}',[SubCategoryController::class, 'GetSubSubCategory']);
@@ -123,8 +115,7 @@ Route::prefix('category')->group(function(){
 });
 
 //All routes for Admin Product
-
-Route::prefix('product')->group(function(){
+Route::middleware('auth:admin')->prefix('product')->group(function(){
     Route::get('/add',[ProductController::class, 'AddProduct'])->name('add-product');
     Route::post('/store',[ProductController::class, 'StoreProduct'])->name('product-store');
     Route::get('/manage',[ProductController::class, 'ManageProduct'])->name('manage-product');
@@ -140,8 +131,7 @@ Route::prefix('product')->group(function(){
 });
 
 //All routes for Admin Slider
-
-Route::prefix('slider')->group(function(){
+Route::middleware('auth:admin')->prefix('slider')->group(function(){
     Route::get('/view',[SliderController::class, 'SliderView'])->name('manage-slider');
     Route::get('/inactive/{id}', [SliderController::class, 'SliderInactive'])->name('slider.inactive');
     Route::get('/active/{id}', [SliderController::class, 'SliderActive'])->name('slider.active');
@@ -152,26 +142,20 @@ Route::prefix('slider')->group(function(){
 });
 
 // Frontend Routes
-
 //Multi-language
 Route::get('/language/english',[LanguageController::class, 'English'])->name('english.language');
 Route::get('/language/bengali',[LanguageController::class, 'Bengali'])->name('bengali.language');
 
 //Product 
 Route::get('/product/details/{id}/{slug}',[IndexController::class, 'ProductDetails']);
-
 //Common Tag
 Route::get('/product/tag/{tag}',[IndexController::class, 'TagWiseProduct']);
-
 //Subcategory wise data
 Route::get('/subcategory/product/{subcat_id}/{slug}', [IndexController::class, 'SubCatWiseProduct']);
-
 //Subsubcategory wise data
 Route::get('/subsubcategory/product/{subsubcat_id}/{slug}', [IndexController::class, 'SubSubCatWiseProduct']);
-
 // Product View Modal with Ajax
 Route::get('/product/view/modal/{id}', [IndexController::class, 'ProductViewAjax']); 
-
 // Add to Cart Store Data
 Route::post('/cart/data/store/{id}', [CartController::class, 'AddToCart']);
 // Get Data from mini cart
@@ -209,7 +193,7 @@ Route::get('/cart-increment/{rowId}', [CartPageController::class, 'CartIncrement
 Route::get('/cart-decrement/{rowId}', [CartPageController::class, 'CartDecrement']);
 
 //All routes for Admin Coupons
-Route::prefix('coupons')->group(function(){
+Route::middleware('auth:admin')->prefix('coupons')->group(function(){
     Route::get('/view', [CouponController::class, 'CouponView'])->name('manage-coupon');
     Route::post('/store', [CouponController::class, 'CouponStore'])->name('coupon.store');
     Route::get('/edit/{id}', [CouponController::class, 'CouponEdit'])->name('coupon.edit');
@@ -218,7 +202,7 @@ Route::prefix('coupons')->group(function(){
 });
 
 // Admin Shipping All Routes
-Route::prefix('shipping')->group(function(){
+Route::middleware('auth:admin')->prefix('shipping')->group(function(){
 
   //State routes
   Route::get('/state/view', [ShippingAreaController::class, 'StateView'])->name('manage-state');  
