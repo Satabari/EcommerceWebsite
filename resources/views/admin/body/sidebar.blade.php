@@ -147,6 +147,19 @@ $route = Route::current()->getName();
         </ul>
       </li>
 
+      <li class="treeview {{ ($prefix == '/reports')?'active':'' }}  ">
+        <a href="#">
+          <i data-feather="map"></i>
+          <span>Report</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-right pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li class="{{ ($route == 'all-reports')? 'active':'' }}"><a href="{{ route('all-reports') }}"><i class="ti-more"></i>All Reports</a></li>
+        </ul>
+      </li>
+
       <li class="header nav-small-cap">User Interface</li>
 
       <li class="treeview">
