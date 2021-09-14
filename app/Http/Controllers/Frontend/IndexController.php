@@ -19,11 +19,13 @@ use App\Models\Slider;
 
 use App\Models\Product;
 use App\Models\MultiImage;
+use App\Models\BlogPost;
 
 class IndexController extends Controller
 {
   public function index()
   {
+    $blogpost = BlogPost::latest()->get();
     $categories = Category::orderBy('category_name', 'ASC')->get();
 
     $sliders = Slider::where('status', 1)->orderBy('id', 'DESC')->limit(3)->get();
@@ -40,7 +42,7 @@ class IndexController extends Controller
     $skip_brand = Brand::skip(3)->first();
     $skip_brand_product = Product::where('status', 1)->where('brand_id', $skip_brand->id)->orderBy('id', 'DESC')->get();
 
-    return view('frontend.index', compact('categories', 'sliders', 'products', 'featured', 'skip_category_0', 'skip_category_product_0', 'skip_category_1', 'skip_category_product_1', 'skip_brand', 'skip_brand_product'));
+    return view('frontend.index', compact('categories', 'sliders', 'products', 'featured', 'skip_category_0', 'skip_category_product_0', 'skip_category_1', 'skip_category_product_1', 'skip_brand', 'skip_brand_product','blogpost'));
   }
 
   public function UserLogout()

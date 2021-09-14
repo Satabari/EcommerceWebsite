@@ -17,10 +17,12 @@ use App\Http\Controllers\Backend\CouponController;
 use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Backend\ShippingAreaController;
 use App\Http\Controllers\Backend\ReportController;
+use App\Http\Controllers\Backend\BlogController;
 
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\LanguageController;
 use App\Http\Controllers\Frontend\CartController;
+use App\Http\Controllers\Frontend\HomeBlogController;
 
 use App\Http\Controllers\User\WishlistController;
 use App\Http\Controllers\user\CartPageController;
@@ -271,6 +273,24 @@ Route::prefix('reports')->group(function () {
   Route::post('/search/by/year', [ReportController::class, 'ReportByYear'])->name('search-by-year');
 });
 
+Route::prefix('blog')->group(function () {
+  Route::get('/category', [BlogController::class, 'BlogCategory'])->name('blog.category');
+  Route::post('/store', [BlogController::class, 'BlogCategoryStore'])->name('blogcategory.store');
+  Route::get('/category/edit/{id}', [BlogController::class, 'BlogCategoryEdit'])->name('blog.category.edit');
+  Route::post('/update', [BlogController::class, 'BlogCategoryUpdate'])->name('blogcategory.update');
+  Route::get('/delete/{id}', [BlogController::class, 'BlogCategoryDelete'])->name('blogcategory.delete');
+
+  // Admin View Blog Post Routes
+  Route::get('/list/post', [BlogController::class, 'ListBlogPost'])->name('list.post');
+  Route::get('/add/post', [BlogController::class, 'AddBlogPost'])->name('add.post');
+  Route::post('/post/store', [BlogController::class, 'BlogPostStore'])->name('post-store');
+});
+
 Route::prefix('alluser')->group(function () {
   Route::get('/view', [AdminProfileController::class, 'AllUsers'])->name('all-users');
 });
+
+//  Frontend Blog Show Routes 
+Route::get('/blog', [HomeBlogController::class, 'AddBlogPost'])->name('home.blog');
+Route::get('/post/details/{id}', [HomeBlogController::class, 'DetailsBlogPost'])->name('post.details');
+Route::get('/blog/category/post/{category_id}', [HomeBlogController::class, 'HomeBlogCatPost']);
