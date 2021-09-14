@@ -36,8 +36,8 @@
                     <td> <img src="{{ asset($item->post_image) }}" style="width: 60px; height: 60px;"> </td>
                     <td>{{ $item->post_title }}</td>
                     <td width="20%">
-                      <a href="{{ route('blog.category.edit',$item->id) }}" class="btn btn-info" title="Edit Data"><i class="fa fa-pencil"></i> </a>
-                      <a href="{{ route('category.delete',$item->id) }}" class="btn btn-danger" title="Delete Data" id="delete">  <i class="fa fa-trash"></i></a>
+                      <a href="{{ route('post-edit',$item->id) }}" class="btn btn-info" title="Edit Data"><i class="fa fa-pencil"></i> </a>
+                      <a href="{{ route('post-delete',$item->id) }}" class="btn btn-danger" title="Delete Data" id="delete">  <i class="fa fa-trash"></i></a>
                     </td>
                   </tr>
                   @endforeach

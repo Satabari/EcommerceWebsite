@@ -10,16 +10,21 @@
     <!-- Basic Forms -->
     <div class="box">
       <div class="box-header with-border">
-        <h4 class="box-title">Add Blog Post </h4>
+        <h4 class="box-title">Edit Blog Post </h4>
       </div>
       <!-- /.box-header -->
       <div class="box-body">
         <div class="row">
           <div class="col">
-            <form method="post" action="{{ route('post-store') }}" enctype="multipart/form-data">
+            <form method="post" action="{{ route('post-update',$blog_post->id) }}" enctype="multipart/form-data">
               @csrf
+
+              <input type="hidden" name="id" value="{{ $blog_post->id }}">
+              <input type="hidden" name="old_image" value="{{ $blog_post->post_image }}">
+              
               <div class="row">
                 <div class="col-12">
+
                   <div class="row">
                     <!-- start 2nd row  -->
                     <div class="col-md-4">
@@ -53,7 +58,7 @@
 
                     <div class="col-md-4">
                       <div class="form-group">
-                        <h5>Post Main Image <span class="text-danger">*</span></h5>
+                        <h5>Post Image <span class="text-danger">*</span></h5>
                         <div class="controls">
                           <input type="file" name="post_image" class="form-control" onChange="mainThumbUrl(this)" required="">
                           @error('post_image')
@@ -77,8 +82,11 @@
                   </div> <!-- end 8th row  -->
                   <hr>
                   <div class="text-xs-right">
-                    <input type="submit" class="btn btn-rounded btn-primary mb-5" value="Add Post">
+                    <input type="submit" class="btn btn-rounded btn-primary mb-5" value="Update Post">
                   </div>
+
+                </div>
+              </div>
             </form>
 
           </div>
@@ -95,7 +103,7 @@
     if (input.files && input.files[0]) {
       var reader = new FileReader();
       reader.onload = function(e) {
-        $('#mainThmb').attr('src', e.target.result).width(80).height(80);
+        $('#mainThumb').attr('src', e.target.result).width(80).height(80);
       };
       reader.readAsDataURL(input.files[0]);
     }

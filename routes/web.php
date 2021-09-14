@@ -18,6 +18,7 @@ use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Backend\ShippingAreaController;
 use App\Http\Controllers\Backend\ReportController;
 use App\Http\Controllers\Backend\BlogController;
+use App\Http\Controllers\Backend\SiteSettingController;
 
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\LanguageController;
@@ -284,6 +285,9 @@ Route::prefix('blog')->group(function () {
   Route::get('/list/post', [BlogController::class, 'ListBlogPost'])->name('list.post');
   Route::get('/add/post', [BlogController::class, 'AddBlogPost'])->name('add.post');
   Route::post('/post/store', [BlogController::class, 'BlogPostStore'])->name('post-store');
+  Route::get('/post/edit/{id}', [BlogController::class, 'BlogPostEdit'])->name('post-edit');
+  Route::post('/post/update', [BlogController::class, 'BlogPostUpdate'])->name('post-update');
+  Route::get('/post/delete/{id}', [BlogController::class, 'BlogPostDelete'])->name('post-delete');
 });
 
 Route::prefix('alluser')->group(function () {
@@ -294,3 +298,9 @@ Route::prefix('alluser')->group(function () {
 Route::get('/blog', [HomeBlogController::class, 'AddBlogPost'])->name('home.blog');
 Route::get('/post/details/{id}', [HomeBlogController::class, 'DetailsBlogPost'])->name('post.details');
 Route::get('/blog/category/post/{category_id}', [HomeBlogController::class, 'HomeBlogCatPost']);
+
+// Admin Site Setting Routes 
+Route::prefix('setting')->group(function () {
+  Route::get('/site', [SiteSettingController::class, 'SiteSetting'])->name('site.setting');
+  Route::post('/site/update', [SiteSettingController::class, 'SiteSettingUpdate'])->name('update.sitesetting');
+});
