@@ -318,3 +318,11 @@ Route::prefix('return')->group(function () {
 
 // Frontend Product Review Routes
 Route::post('/review/store', [ReviewController::class, 'ReviewStore'])->name('review.store');
+
+// Admin Manage Review Routes 
+Route::prefix('review')->group(function () {
+  Route::get('/pending', [ReviewController::class, 'PendingReview'])->name('pending.review');
+  Route::get('/admin/approve/{id}', [ReviewController::class, 'ReviewApprove'])->name('review.approve');
+  Route::get('/publish', [ReviewController::class, 'PublishReview'])->name('publish.review');
+  Route::get('/delete/{id}', [ReviewController::class, 'DeleteReview'])->name('delete.review');
+});
