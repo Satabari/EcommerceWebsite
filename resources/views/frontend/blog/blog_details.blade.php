@@ -26,14 +26,8 @@
             <h1>{{ $blogpost->post_title }}</h1>
             <span class="date-time">{{ Carbon\Carbon::parse($blogpost->created_at)->diffForHumans()  }}</span>
             <p> {!! $blogpost->post_details !!} </p>
-            <div class="social-media">
-              <span>share post:</span>
-              <a href="#"><i class="fa fa-facebook"></i></a>
-              <a href="#"><i class="fa fa-twitter"></i></a>
-              <a href="#"><i class="fa fa-linkedin"></i></a>
-              <a href=""><i class="fa fa-rss"></i></a>
-              <a href="" class="hidden-xs"><i class="fa fa-pinterest"></i></a>
-            </div>
+            <!-- Go to www.addthis.com/dashboard to customize your tools -->
+            <div class="addthis_inline_share_toolbox_8tvu"></div>
           </div>
           <div class="blog-write-comment outer-bottom-xs outer-top-xs">
             <div class="row">
@@ -130,5 +124,8 @@
     </div>
   </div>
 </div>
+
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5e4b85f98de5201f"></script>
 
 @endsection

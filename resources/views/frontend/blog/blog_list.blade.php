@@ -20,12 +20,12 @@ Blog Page
   <div class="container">
     <div class="row">
       <div class="blog-page">
-        <div class="col-md-9">
+        <div class="col-md-12">
           <div class="blog-post  wow fadeInUp">
             @foreach($blogpost as $blog)
             <div class="blog-post  wow fadeInUp">
               <a href="blog-details.html"><img class="img-responsive" src="{{ asset($blog->post_image) }}" alt=""></a>
-              <span class="date-time"> {{ Carbon\Carbon::parse($blog->created_at)->diffForHumans()  }}</span>
+              <span class="date-time"> {{ Carbon\Carbon::parse($blog->created_at)->diffForHumans() }}</span>
               <p> {!! Str::limit($blog->post_details, 200 ) !!} </p>
               <a href="{{ route('post.details',$blog->id) }}" class="btn btn-upper btn-primary read-more">read more</a>
             </div>
@@ -46,45 +46,56 @@ Blog Page
 
             </div><!-- /.filters-container -->
           </div>
-          <div class="col-md-3 sidebar">
+
+          <hr>
+
+          <div class="row sidebar">
             <div class="sidebar-module-container">
-              <div class="search-area outer-bottom-small">
-                <form>
-                  <div class="control-group">
-                    <input placeholder="Type to search" class="search-field">
-                    <a href="#" class="search-button"></a>
-                  </div>
-                </form>
+              <div class="col-md-4">
+                <div class="search-area outer-bottom-small">
+                  <form>
+                    <div class="control-group">
+                      <input placeholder="Type to search" class="search-field">
+                      <a href="#" class="search-button"></a>
+                    </div>
+                  </form>
+                </div>
+                <!-- ==============================================CATEGORY============================================== -->
+                @foreach($blogcategory as $category)
+                <ul class="list-group">
+                  <a href="{{ url('blog/category/post/'.$category->id) }}">
+                    <li class="list-group-item"> {{ $category->blog_category_name }}</li>
+                  </a>
+                </ul>
+                @endforeach
+                <!-- ============================================== CATEGORY : END ============================================== -->
               </div>
-
-              <div class="home-banner outer-top-n outer-bottom-xs">
-                <img src="{{ asset('frontend/assets/images/banners/LHS-banner.jpg') }}" alt="Image">
+              <!-- ================================================ Logo ================================================ -->
+              <div class="col-md-4">
+                <div class="home-banner outer-top-n outer-bottom-xs">
+                  <img src="{{ asset('frontend/assets/images/banners/LHS-banner.jpg') }}" alt="Image">
+                </div>
               </div>
-              <!-- ==============================================CATEGORY============================================== -->
-              @foreach($blogcategory as $category)
-              <ul class="list-group">
-                <a href="{{ url('blog/category/post/'.$category->id) }}"><li class="list-group-item"> {{ $category->blog_category_name_en }}</li></a>
-              </ul>
-              @endforeach
-              <!-- ============================================== CATEGORY : END ============================================== -->
-
+              <!-- ================================================ Logo ================================================ -->
               <!-- ============================================== PRODUCT TAGS ============================================== -->
-              <div class="sidebar-widget product-tag wow fadeInUp">
-                <h3 class="section-title">Product tags</h3>
-                <div class="sidebar-widget-body outer-top-xs">
-                  <div class="tag-list">
-                    <a class="item" title="Phone" href="category.html">Phone</a>
-                    <a class="item active" title="Vest" href="category.html">Vest</a>
-                    <a class="item" title="Smartphone" href="category.html">Smartphone</a>
-                    <a class="item" title="Furniture" href="category.html">Furniture</a>
-                    <a class="item" title="T-shirt" href="category.html">T-shirt</a>
-                    <a class="item" title="Sweatpants" href="category.html">Sweatpants</a>
-                    <a class="item" title="Sneaker" href="category.html">Sneaker</a>
-                    <a class="item" title="Toys" href="category.html">Toys</a>
-                    <a class="item" title="Rose" href="category.html">Rose</a>
-                  </div><!-- /.tag-list -->
-                </div><!-- /.sidebar-widget-body -->
-              </div><!-- /.sidebar-widget -->
+              <div class="col-md-4">
+                <div class="sidebar-widget product-tag wow fadeInUp">
+                  <h3 class="section-title">Product tags</h3>
+                  <div class="sidebar-widget-body outer-top-xs">
+                    <div class="tag-list">
+                      <a class="item" title="Phone" href="category.html">Phone</a>
+                      <a class="item active" title="Vest" href="category.html">Vest</a>
+                      <a class="item" title="Smartphone" href="category.html">Smartphone</a>
+                      <a class="item" title="Furniture" href="category.html">Furniture</a>
+                      <a class="item" title="T-shirt" href="category.html">T-shirt</a>
+                      <a class="item" title="Sweatpants" href="category.html">Sweatpants</a>
+                      <a class="item" title="Sneaker" href="category.html">Sneaker</a>
+                      <a class="item" title="Toys" href="category.html">Toys</a>
+                      <a class="item" title="Rose" href="category.html">Rose</a>
+                    </div><!-- /.tag-list -->
+                  </div><!-- /.sidebar-widget-body -->
+                </div><!-- /.sidebar-widget -->
+              </div>
               <!-- ============================================== PRODUCT TAGS : END ============================================== -->
             </div>
           </div>
