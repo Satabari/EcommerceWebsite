@@ -5,11 +5,13 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Models\Product;
 use App\Models\Order;
 use App\Models\OrderItem;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use PDF;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
