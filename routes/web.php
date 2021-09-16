@@ -190,6 +190,8 @@ Route::group(['prefix' => 'user', 'middleware' => ['user', 'auth'], 'namespace' 
   Route::post('/return/order/{order_id}', [AllUserController::class, 'ReturnOrder'])->name('return.order');
   Route::get('/return/order/list', [AllUserController::class, 'ReturnOrderList'])->name('return.order.list');
   Route::get('/cancel/orders', [AllUserController::class, 'CancelOrders'])->name('cancel.orders');
+  // Order Traking Route 
+  Route::post('/order/tracking', [AllUserController::class, 'OrderTracking'])->name('order.tracking');    
 });
 
 // Cart view
@@ -340,4 +342,8 @@ Route::prefix('adminuserrole')->group(function () {
   Route::post('/store', [AdminUserController::class, 'StoreAdminRole'])->name('admin.user.store');
   Route::get('/edit/{id}', [AdminUserController::class, 'EditAdminRole'])->name('edit.admin.user');
   Route::post('/update', [AdminUserController::class, 'UpdateAdminRole'])->name('admin.user.update');
+  Route::get('/delete/{id}', [AdminUserController::class, 'DeleteAdminRole'])->name('delete.admin.user');
 });
+
+// Product Search Route 
+Route::post('/search', [IndexController::class, 'ProductSearch'])->name('product.search');

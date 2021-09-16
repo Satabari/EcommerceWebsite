@@ -19,11 +19,12 @@
                 @if(session()->get('language') == 'bengali') চেকআউট @else Checkout @endif
               </a></li>
             <li>
-              @auth
-              <a href="{{ route('dashboard') }}"><i class="icon fa fa-user"></i>User Profile</a>
-              @else
-              <a href="{{ route('login') }}"><i class="icon fa fa-lock"></i>Login/Register</a>
-              @endauth
+            <li><a href="" type="button" data-toggle="modal" data-target="#ordertracking"><i class="icon fa fa-check"></i>Order Tracking</a></li>
+            @auth
+            <a href="{{ route('dashboard') }}"><i class="icon fa fa-user"></i>User Profile</a>
+            @else
+            <a href="{{ route('login') }}"><i class="icon fa fa-lock"></i>Login/Register</a>
+            @endauth
             </li>
           </ul>
         </div>
@@ -87,7 +88,8 @@
           <!-- /.contact-row -->
           <!-- ============================================================= SEARCH AREA ============================================================= -->
           <div class="search-area">
-            <form>
+            <form method="post" action="{{ route('product.search') }}">
+              @csrf
               <div class="control-group">
                 <ul class="categories-filter animate-dropdown">
 
@@ -105,8 +107,8 @@
                   </li>
 
                 </ul>
-                <input class="search-field" placeholder="Search here..." />
-                <a class="search-button" href="#"></a>
+                <input class="search-field" name="search" placeholder="Search here..." />
+                <button class="search-button" type="submit"></button>
               </div>
             </form>
           </div>
@@ -261,5 +263,29 @@
   </div>
   <!-- /.header-nav -->
   <!-- ============================================== NAVBAR : END ============================================== -->
+
+  <!-- Order Traking Modal -->
+  <div class="modal fade" id="ordertracking" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Track Your Order </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form method="post" action="{{ route('order.tracking') }}">
+            @csrf
+            <div class="modal-body">
+              <label>Invoice Code</label>
+              <input type="text" name="code" required="" class="form-control" placeholder="Your Order Invoice Number">
+            </div>
+            <button class="btn btn-danger" type="submit" style="margin-left: 17px;"> Track Now </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </header>
