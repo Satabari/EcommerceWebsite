@@ -352,3 +352,4 @@ Route::post('/search', [IndexController::class, 'ProductSearch'])->name('product
 Route::post('search-product', [IndexController::class, 'SearchProduct']);
 // Shop Page Route 
 Route::get('/shop', [ShopController::class, 'ShopPage'])->name('shop.page');
+Route::post('/shop/filter', [ShopController::class, 'ShopFilter'])->name('shop.filter');
