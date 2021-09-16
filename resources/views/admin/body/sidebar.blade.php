@@ -30,7 +30,8 @@ $route = Route::current()->getName();
       </li>
 
       @php
-        $brand = (auth()->guard('admin')->user()->brand == 1);
+ 
+        $brand = (auth()->guard('admin')->user()->brands == 1);
         $category = (auth()->guard('admin')->user()->category == 1);
         $product = (auth()->guard('admin')->user()->product == 1);
         $slider = (auth()->guard('admin')->user()->slider == 1);

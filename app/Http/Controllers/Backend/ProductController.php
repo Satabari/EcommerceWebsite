@@ -26,6 +26,15 @@ class ProductController extends Controller
 
     public function StoreProduct(Request $request)
     {
+        $request->validate([
+            'file' => 'required|mimes:jpeg,png,jpg,zip,pdf|max:2048',
+        ]);
+        if ($files = $request->file('file')) {
+            $destinationPath = 'upload/pdf'; // upload path
+            $digitalItem = date('YmdHis') . "." . $files->getClientOriginalExtension();
+            $files->move($destinationPath, $digitalItem);
+        }
+
         $image = $request->file('product_thumbnail');
         $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
         Image::make($image)->resize(917, 1000)->save('upload/products/thumbnail/' . $name_gen);
@@ -48,6 +57,7 @@ class ProductController extends Controller
             'short_descp' => $request->short_descp,
             'long_descp' => $request->long_descp,
             'product_thumbnail' => $save_url,
+            'digital_file' => $digitalItem,
             'hot_deals' => $request->hot_deals,
             'featured' => $request->featured,
             'special_offer' => $request->special_offer,
@@ -89,7 +99,6 @@ class ProductController extends Controller
     public function ProductDetails($id)
     {
         $multiImgs = MultiImage::where('product_id', $id)->get();
-
         $brands = Brand::latest()->get();
         $categories = Category::latest()->get();
         $subcategories = SubCategory::latest()->get();

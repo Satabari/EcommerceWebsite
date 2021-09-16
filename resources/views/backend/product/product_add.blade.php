@@ -18,7 +18,7 @@
         <div class="row">
           <div class="col">
             <form method="post" action="{{ route('product-store') }}" enctype="multipart/form-data">
-            @csrf
+              @csrf
 
               <div class="row">
                 <!-- 1st row -->
@@ -160,7 +160,7 @@
                   <div class="form-group">
                     <h5>Product Tags<span class="text-danger">*</span></h5>
                     <div class="controls">
-                      <input type="text" name="product_tag" value="" data-role="tagsinput" placeholder="Add tags" required=""/>
+                      <input type="text" name="product_tag" value="" data-role="tagsinput" placeholder="Add tags" required="" />
                     </div>
                     @error('product_tag')
                     <span class="text-danger">{{ $message }}</span>
@@ -179,7 +179,7 @@
                   <div class="form-group">
                     <h5>Product Size<span class="text-danger">*</span></h5>
                     <div class="controls">
-                      <input type="text" name="product_size" value="small,medium,large" data-role="tagsinput" placeholder="Add tags" required=""/>
+                      <input type="text" name="product_size" value="small,medium,large" data-role="tagsinput" placeholder="Add tags" required="" />
                     </div>
                     @error('product_size')
                     <span class="text-danger">{{ $message }}</span>
@@ -191,7 +191,7 @@
                   <div class="form-group">
                     <h5>Product Color<span class="text-danger">*</span></h5>
                     <div class="controls">
-                      <input type="text" name="product_color" value="" data-role="tagsinput" placeholder="Add tags" required=""/>
+                      <input type="text" name="product_color" value="" data-role="tagsinput" placeholder="Add tags" required="" />
                     </div>
                     @error('product_color')
                     <span class="text-danger">{{ $message }}</span>
@@ -349,9 +349,18 @@
                     </div>
                   </div>
                 </div>
-
               </div>
 
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <h5>Digital Product <span class="text-danger">pdf,xlx,csv*</span></h5>
+                    <div class="controls">
+                      <input type="file" name="file" class="form-control">
+                    </div>
+                  </div>
+                </div>
+              </div>
 
               <div class="text-xs-right">
                 <input type="submit" class="btn btn-rounded btn-primary mb-5" value="Add Product">
